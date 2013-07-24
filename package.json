@@ -1,0 +1,23 @@
+{
+  "name": "maybe-resumable",
+  "version": "1.0.0",
+  "description": "Resumable.js support for older browsers",
+  "main": "maybe-resumable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "resumable",
+    "resumable.js",
+    "uploader"
+  ],
+  "author": "Aidas Klimas",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-concat": "~0.3.0"
+  }
+}

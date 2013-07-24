@@ -1,0 +1,21 @@
+{
+  "name": "maybe-resumable.js",
+  "repo": "aidask/maybe-resumable.js",
+  "version": "1.0.0",
+  "main": "maybe-resumable.js",
+  "scripts": [
+    "src/maybe-resumable.js",
+    "src/not-resumable.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "resumable.js": "latest"
+  }
+}
