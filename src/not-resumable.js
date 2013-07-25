@@ -248,7 +248,7 @@ var NotResumable = function(opts){
             }
             return finished ? 1 : 0;
         };
-        $.uploading = function() {
+        $.isUploading = function() {
             return $.iFrame !== null;
         };
         $.send = function () {
@@ -345,7 +345,7 @@ var NotResumable = function(opts){
     $.isUploading = function() {
         var uploading = false;
         $h.each($.files, function(file){
-            if (file.uploading()) {
+            if (file.isUploading()) {
                 uploading = true;
                 return false;
             }
@@ -359,7 +359,7 @@ var NotResumable = function(opts){
             if (file.progress() == 1) {
                 return ;
             }
-            if (file.uploading()) {
+            if (file.isUploading()) {
                 files++;
                 return ;
             }
@@ -423,4 +423,6 @@ var NotResumable = function(opts){
 };
 
 // Node.js-style export for Node and Component
-module.exports = NotResumable;
+if(typeof module != 'undefined') {
+    module.exports = NotResumable;
+}

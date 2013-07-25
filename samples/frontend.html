@@ -58,7 +58,9 @@ function init(resumable) {
     var opts = {
         target: 'server.php',
         query: {'Hello':'hi', 'resumable': resumable},
-        simultaneousUploads: 1
+        simultaneousUploads: 1,
+        chunkSize: 1024*1024*1,
+        throttleProgressCallbacks: 0
     };
     var r = resumable ? new Resumable(opts) : new NotResumable(opts);
     if (!r.support) {
@@ -136,6 +138,10 @@ function init(resumable) {
             }
             element = document.createElement('span');
             element.innerText = 'progress: ' + $.file.progress();
+            $.element.appendChild(element);
+
+            element = document.createElement('span');
+            element.innerText = 'uploading: ' + ($.file.isUploading() ? 'True' : 'False');
             $.element.appendChild(element);
 
             element = document.createElement('span');
