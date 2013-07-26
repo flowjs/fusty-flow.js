@@ -131,7 +131,7 @@ function init(resumable) {
         $.message = '';
         $.init = function () {
             var element;
-            for (var index in {'fileName':1, 'size':1, 'relativePath':1, 'uniqueIdentifier':1, 'message': 1}) {
+            for (var index in {'fileName':1, 'size':1, 'relativePath':1, 'uniqueIdentifier':1}) {
                 element = document.createElement('span');
                 element.innerText = index + ': ' + $.file[index];
                 $.element.appendChild(element);
@@ -142,6 +142,10 @@ function init(resumable) {
                 element.innerText = index + ': ' + $.file[index]();
                 $.element.appendChild(element);
             }
+
+            element = document.createElement('span');
+            element.innerText = 'message' + ': ' + $.message;
+            $.element.appendChild(element);
 
             jQuery.each({'abort':1, 'retry':1, 'cancel':1}, function (index) {
                 element = document.createElement('a');
