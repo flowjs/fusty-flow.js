@@ -58,7 +58,7 @@ function init(resumable) {
     var opts = {
         target: 'server.php',
         query: {'Hello':'hi', 'resumable': resumable},
-        simultaneousUploads: 1,
+        simultaneousUploads: 2,
         chunkSize: 1024*1024*1,
         throttleProgressCallbacks: 0
     };
@@ -131,22 +131,17 @@ function init(resumable) {
         $.message = '';
         $.init = function () {
             var element;
-            for (var index in {'fileName':1, 'size':1, 'relativePath':1, 'uniqueIdentifier':1}) {
+            for (var index in {'fileName':1, 'size':1, 'relativePath':1, 'uniqueIdentifier':1, 'message': 1}) {
                 element = document.createElement('span');
                 element.innerText = index + ': ' + $.file[index];
                 $.element.appendChild(element);
             }
-            element = document.createElement('span');
-            element.innerText = 'progress: ' + $.file.progress();
-            $.element.appendChild(element);
 
-            element = document.createElement('span');
-            element.innerText = 'uploading: ' + ($.file.isUploading() ? 'True' : 'False');
-            $.element.appendChild(element);
-
-            element = document.createElement('span');
-            element.innerText = 'message: ' + $.message;
-            $.element.appendChild(element);
+            for (var index in {'progress':1, 'isUploading':1, 'uploadedFileSize':1}) {
+                element = document.createElement('span');
+                element.innerText = index + ': ' + $.file[index]();
+                $.element.appendChild(element);
+            }
 
             jQuery.each({'abort':1, 'retry':1, 'cancel':1}, function (index) {
                 element = document.createElement('a');

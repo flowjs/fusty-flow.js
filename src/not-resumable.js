@@ -251,6 +251,9 @@ var NotResumable = function(opts){
         $.isUploading = function() {
             return $.iFrame !== null;
         };
+        $.uploadedFileSize = function() {
+            return null;
+        };
         $.send = function () {
             if (finished) {
                 return ;
