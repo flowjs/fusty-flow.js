@@ -150,6 +150,10 @@ var NotResumable = function(opts){
             } else {
                 return eval("(" + json + ")");
             }
+        },
+        isFunction: function(functionToCheck) {
+            var getType = {};
+            return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
         }
     };
 
@@ -158,7 +162,6 @@ var NotResumable = function(opts){
         var $ = this;
         $.opts = {};
         $.getOpt = resumableObj.getOpt;
-        $._prevProgress = 0;
         $.resumableObj = resumableObj;
         $.element = element;
         $.fileName = element.value && element.value.replace(/.*(\/|\\)/, "");
@@ -269,7 +272,10 @@ var NotResumable = function(opts){
         $.isUploading = function() {
             return $.iFrame !== null;
         };
-        $.uploadedFileSize = function() {
+        $.sizeUploaded = function(){
+            return null;
+        };
+        $.timeRemaining = function(){
             return null;
         };
         $.send = function () {
@@ -279,6 +285,7 @@ var NotResumable = function(opts){
             var o = $.getOpt(['query', 'fileParameterName', 'paramNames']);
             var form = createForm();
             var params = o.query;
+            if($h.isFunction(params)) params = params($);
             params[o.fileParameterName] = $.element;
             params[o.paramNames.resumableFilename] = $.fileName;
             params[o.paramNames.resumableRelativePath] = $.relativePath;
@@ -497,6 +504,8 @@ var Resumable = function(opts){
         generateUniqueIdentifier:null,
         maxChunkRetries:undefined,
         chunkRetryInterval:undefined,
+        measureSpeedInterval:1000,
+        speedSmoothingFactor:0.1,
         permanentErrors:[415, 500, 501],
         maxFiles:undefined,
         maxFilesErrorCallback:function (files, errorCount) {
@@ -682,13 +691,32 @@ var Resumable = function(opts){
         $.size = file.size;
         $.relativePath = file.webkitRelativePath || $.fileName;
         $.uniqueIdentifier = $h.generateUniqueIdentifier(file);
+        $.averageSpeed = 0;
+        $.currentSpeed = 0;
+        $._stopWatch = 0;
+        $._prevUploadedSize = 0;
         var _error = false;
 
+        var updateSpeedParams = function(timeSpan) {
+            // Ignore smoothing factor for first time
+            var smoothingFactor = $.averageSpeed ? $.getOpt('speedSmoothingFactor') : 1;
+            var uploaded = $.sizeUploaded();
+            // Prevent negative upload speed after file upload resume
+            $.currentSpeed = Math.max((uploaded - $._prevUploadedSize) / timeSpan * 1000, 0);
+            // http://stackoverflow.com/questions/2779600/how-to-estimate-download-time-remaining-accurately
+            $.averageSpeed = smoothingFactor * $.currentSpeed + (1 - smoothingFactor) * $.averageSpeed;
+            $._prevUploadedSize = uploaded;
+            $._stopWatch = Date.now();
+        };
         // Callback when something happens within the chunk
         var chunkEvent = function(event, message){
             // event can be 'progress', 'success', 'error' or 'retry'
             switch(event){
                 case 'progress':
+                    var timeSpan = Date.now() - $._stopWatch;
+                    if (timeSpan >= $.getOpt('measureSpeedInterval')) {
+                        updateSpeedParams(timeSpan);
+                    }
                     $.resumableObj.fire('fileProgress', $);
                     break;
                 case 'error':
@@ -773,14 +801,20 @@ var Resumable = function(opts){
             });
             return(uploading);
         };
-        $.uploadedFileSize = function(){
+        $.sizeUploaded = function(){
             var size = 0;
             $h.each($.chunks, function(chunk){
-                if(chunk.status()=='success') {
+                // can't sum only chunk.loaded values, because it is bigger then entire file size
+                if (chunk.status() == 'success') {
                     size += chunk.endByte - chunk.startByte;
+                } else {
+                    size += chunk.loaded;
                 }
             });
             return(size);
+        };
+        $.timeRemaining = function(){
+            return (file.size - $.sizeUploaded()) / $.averageSpeed;
         };
 
         // Bootstrap and return
@@ -804,7 +838,7 @@ var Resumable = function(opts){
 
         // Computed properties
         var chunkSize = $.getOpt('chunkSize');
-        $.loaded = 0;
+        $.loaded = 0;// Size uploaded
         $.startByte = $.offset*chunkSize;
         $.endByte = Math.min($.fileObjSize, ($.offset+1)*chunkSize);
         if ($.fileObjSize-$.endByte < chunkSize && !$.getOpt('forceChunkSize')) {
