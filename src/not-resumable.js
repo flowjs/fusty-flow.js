@@ -8,8 +8,8 @@ var NotResumable = function(opts){
     if ( !(this instanceof NotResumable) ) {
         return new NotResumable( opts );
     }
-    // All browsers should support this
-    this.support = true;
+    // Shortcut of "r instanceof Resumable"
+    this.support = false;
 
     // PROPERTIES
     var $ = this;
@@ -385,9 +385,9 @@ var NotResumable = function(opts){
         $.fire('pause');
     };
     $.cancel = function(){
-        $h.each($.files, function(file){
-            file.cancel();
-        });
+        for(var i = $.files.length - 1; i >= 0; i--) {
+            $.files[i].cancel();
+        }
         $.fire('cancel');
     };
     $.progress = function(){
@@ -406,11 +406,11 @@ var NotResumable = function(opts){
         }
     };
     $.removeFile = function(file){
-        var files = [];
-        $h.each($.files, function(f,i){
-            if(f!==file) files.push(f);
-        });
-        $.files = files;
+        for(var i = $.files.length - 1; i >= 0; i--) {
+            if($.files[i] === file) {
+                $.files.splice(i, 1);
+            }
+        }
     };
     $.getFromUniqueIdentifier = function(uniqueIdentifier){
         var ret = false;
