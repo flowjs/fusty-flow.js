@@ -16,6 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "resumable.js": "latest"
+    "resumablejs": "latest"
   }
 }

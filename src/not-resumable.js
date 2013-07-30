@@ -132,6 +132,10 @@ var NotResumable = function(opts){
             } else {
                 return eval("(" + json + ")");
             }
+        },
+        isFunction: function(functionToCheck) {
+            var getType = {};
+            return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
         }
     };
 
@@ -140,7 +144,6 @@ var NotResumable = function(opts){
         var $ = this;
         $.opts = {};
         $.getOpt = resumableObj.getOpt;
-        $._prevProgress = 0;
         $.resumableObj = resumableObj;
         $.element = element;
         $.fileName = element.value && element.value.replace(/.*(\/|\\)/, "");
@@ -251,7 +254,10 @@ var NotResumable = function(opts){
         $.isUploading = function() {
             return $.iFrame !== null;
         };
-        $.uploadedFileSize = function() {
+        $.sizeUploaded = function(){
+            return null;
+        };
+        $.timeRemaining = function(){
             return null;
         };
         $.send = function () {
@@ -261,6 +267,7 @@ var NotResumable = function(opts){
             var o = $.getOpt(['query', 'fileParameterName', 'paramNames']);
             var form = createForm();
             var params = o.query;
+            if($h.isFunction(params)) params = params($);
             params[o.fileParameterName] = $.element;
             params[o.paramNames.resumableFilename] = $.fileName;
             params[o.paramNames.resumableRelativePath] = $.relativePath;

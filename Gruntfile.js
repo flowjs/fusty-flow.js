@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                     'build/maybe-resumable.min.js': [
                         'src/maybe-resumable.js',
                         'src/not-resumable.js',
-                        'bower_components/resumable.js/resumable.js'
+                        'app/components/resumablejs/resumable.js'
                     ]
                 }
             }
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
                     'build/maybe-resumable.js': [
                         'src/maybe-resumable.js',
                         'src/not-resumable.js',
-                        'bower_components/resumable.js/resumable.js'
+                        'app/components/resumablejs/resumable.js'
                     ]
                 }
             }
