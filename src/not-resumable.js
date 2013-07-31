@@ -218,7 +218,7 @@ var NotResumable = function(opts){
             }
             // iframe.contentWindow.document - for IE<7
             var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document,
-                innerHtml = doc.body.innerHTML;
+                innerHtml = doc.body.innerText;
             $.abort();
             finished = true;
             $.resumableObj.fire('fileSuccess', $, innerHtml);
