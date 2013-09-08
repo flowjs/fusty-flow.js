@@ -3,7 +3,7 @@
 <head>
     <title></title>
     <script>var module = {};</script>
-    <script src="../app/components/resumablejs/resumable.js"></script>
+    <script src="../bower_components/resumable.js/src/resumable.js"></script>
     <script src="../src/maybe-resumable.js"></script>
     <script src="../src/not-resumable.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -30,10 +30,14 @@
             width: 50%;
              float: left;
         }
+        p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
 <div class="span6">
+    <p>Resumable</p>
     <input id="resumableUploader" type="file">
     <a href="#" onclick="resume.upload()">Upload</a>
     <a href="#" onclick="resume.pause()">Pause</a>
@@ -44,6 +48,7 @@
 </div>
 
 <div class="span6">
+    <p>Not Resumable</p>
     <input id="notResumableUploader" type="file">
     <a href="#" onclick="noresume.upload()">Upload</a>
     <a href="#" onclick="noresume.pause()">Pause</a>
@@ -63,7 +68,7 @@ function init(resumable) {
         throttleProgressCallbacks: 0
     };
     var r = resumable ? new Resumable(opts) : new NotResumable(opts);
-    if (!r.support) {
+    if (resumable && !r.support) {
         return ;
     }
     r.assignBrowse(document.getElementById(resumable ? 'resumableUploader' : 'notResumableUploader'));
@@ -142,7 +147,7 @@ function init(resumable) {
         };
         $.init = function () {
             var element;
-            for (var index in {'fileName':1, 'relativePath':1, 'uniqueIdentifier':1}) {
+            for (var index in {'name':1, 'relativePath':1, 'uniqueIdentifier':1}) {
                 element = document.createElement('span');
                 element.innerText = index + ': ' + $.file[index];
                 $.element.appendChild(element);
