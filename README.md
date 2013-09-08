@@ -3,7 +3,7 @@
 A JavaScript library which extends Resumable.js and allows to use not resumable uploads for older browsers, such as IE7, IE8 and IE9.
 
 This library is written in the same style as Resumable.js and follows same api. This means that with
-minimal effort we can have both: awesome (Resumable.js)[https://github.com/resumable2/resumable.js] features and support for older browsers.
+minimal effort we can have both: awesome [Resumable.js](https://github.com/resumable2/resumable.js) features and support for older browsers.
 
 
 ## How can I use it?
@@ -20,11 +20,11 @@ This function automatically checks if Resumable.js is supported.
 
 ## NotResumable
 
-This library has same methods and properties as Resumable except it handles not resumable uploads.
+This library has same methods and properties as `Resumable` except it handles not resumable uploads.
 
 ## NotResumableFile
 
-Files are instance of `NotResumableFile`. It has same methods and properties as ResumableFile.
+File is instance of `NotResumableFile`. It has same methods and properties as `ResumableFile`.
 
 Differences in properties:
  * size - undefined
@@ -40,6 +40,5 @@ Differences in methods:
 
 ## Build
 
-(Download minified, only 18kb)[https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.min.js]
-
-(Download for development)[https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.js]
+[Download minified, only 18kb](https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.min.js)
+[Download for development](https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.js)
