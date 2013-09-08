@@ -32,8 +32,14 @@ Differences in properties:
  * progress - equals to 0 or 1
  * chunks - undefined
  * file - undefined
- 
+
 Differences in methods:
  * getType - returns undefined
  * timeRemaining - returns undefined
  * sizeUploaded - returns undefined
+
+## Build
+
+(Download minified, only 18kb)[https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.min.js]
+
+(Download for development)[https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.js]
