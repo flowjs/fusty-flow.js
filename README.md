@@ -1,13 +1,17 @@
 ## What is Maybe-Resumable.js ?
 
-A JavaScript library which extends Resumable.js and allows to use not resumable uploads for older browsers.
+A JavaScript library which extends Resumable.js and allows to use not resumable uploads for older browsers, such as IE7, IE8 and IE9.
+
+This library is written in the same style as Resumable.js and follows same api. This means that with
+minimal effort we can have both: awesome (Resumable.js)[https://github.com/resumable2/resumable.js] features and support for older browsers.
 
 
 ## How can I use it?
 
-Same as Resumable.js except of calling Resumable function we call MaybeResumable.
+Same as Resumable.js, except of calling Resumable constructor we call maybeResumable function.
+This function automatically checks if Resumable.js is supported.
 
-    var uploader = new MaybeResumable({
+    var uploader = maybeResumable({
       target:'/api/photo/redeem-upload-token', 
       query:{upload_token:'my_token'}
     });
@@ -16,17 +20,20 @@ Same as Resumable.js except of calling Resumable function we call MaybeResumable
 
 ## NotResumable
 
-This library has same methods and properties as Resumable except it handles not resumable uploads and supports IE 7 - and greater browsers.
+This library has same methods and properties as Resumable except it handles not resumable uploads.
 
 ## NotResumableFile
 
 Files are instance of `NotResumableFile`. It has same methods and properties as ResumableFile.
 
 Differences in properties:
- * size - always equals to null
+ * size - undefined
  * uniqueIdentifier - is generated in uuid format
  * progress - equals to 0 or 1
- * sizeUploaded - always equals to null
- * timeRemaining - always equals to null
  * chunks - undefined
  * file - undefined
+ 
+Differences in methods:
+ * getType - returns undefined
+ * timeRemaining - returns undefined
+ * sizeUploaded - returns undefined
