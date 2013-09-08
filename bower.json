@@ -1,12 +1,7 @@
 {
   "name": "maybe-resumable.js",
-  "repo": "aidask/maybe-resumable.js",
-  "version": "1.0.0",
-  "main": "maybe-resumable.js",
-  "scripts": [
-    "src/maybe-resumable.js",
-    "src/not-resumable.js"
-  ],
+  "version": "1.0.0-alpha",
+  "main": "src/maybe-resumable.js",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,6 +11,6 @@
     "tests"
   ],
   "dependencies": {
-    "resumablejs": "latest"
+    "resumable.js": "master"
   }
 }

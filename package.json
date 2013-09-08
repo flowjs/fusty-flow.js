@@ -1,12 +1,15 @@
 {
   "name": "maybe-resumable",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "Resumable.js support for older browsers",
-  "main": "maybe-resumable.js",
+  "main": "src/maybe-resumable.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/resumable2/maybe-resumable.js.git"
+  },
   "keywords": [
     "resumable",
     "resumable.js",
