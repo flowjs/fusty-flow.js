@@ -62,7 +62,7 @@
       fileParameterName: 'file',
       query: {},
       target: '/',
-      generateUniqueIdentifier: null
+      generateUniqueIdentifier: null,
       matchJSON: false
     };
 
@@ -71,10 +71,11 @@
     this.inputChangeEvent = function (event) {
       var input = event.srcElement;
       removeEvent(input, 'change', $.inputChangeEvent);
-      $.addFile(input, event);
-      var newClone = input.cloneNode();
+      var newClone = input.cloneNode(false);
       // change current input with new one
       input.parentNode.replaceChild(newClone, input);
+      // old input will be attached to hidden form
+      $.addFile(input, event);
       // reset new input
       newClone.value = '';
       addEvent(newClone, 'change', $.inputChangeEvent);
