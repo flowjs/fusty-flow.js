@@ -5,9 +5,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components",
     "bower_components",
-    "test",
     "tests"
   ],
   "dependencies": {

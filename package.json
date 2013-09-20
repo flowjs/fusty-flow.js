@@ -1,7 +1,7 @@
 {
-  "name": "maybe-resumable",
+  "name": "maybe-resumable.js",
   "version": "1.0.0-alpha",
-  "description": "Resumable.js support for older browsers",
+  "description": "Resumable.js html5 file upload support for older browsers",
   "main": "src/maybe-resumable.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
