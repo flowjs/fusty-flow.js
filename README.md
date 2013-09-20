@@ -21,6 +21,8 @@ This function automatically checks if Resumable.js is supported.
 ## NotResumable
 
 This library has same methods and properties as `Resumable` except it handles not resumable uploads.
+Additional options:
+ * matchJSON - removes html from returned response on fileSuccess event. Default false.
 
 ## NotResumableFile
 
