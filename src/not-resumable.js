@@ -33,14 +33,6 @@
     element.parentNode.removeChild(element);
   }
 
-  function parseJson(json) {
-    if (window.JSON) {
-      return JSON.parse(json);
-    } else {
-      return eval("(" + json + ")");
-    }
-  }
-
   function isFunction(functionToCheck) {
     var getType = {};
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
@@ -56,6 +48,7 @@
    * @param {Object} [opts.headers]
    * @param {string} [opts.target]
    * @param {Function} [opts.generateUniqueIdentifier]
+   * @param {bool} [opts.matchJSON]
    * @constructor
    */
   function NotResumable(opts) {
@@ -70,6 +63,7 @@
       query: {},
       target: '/',
       generateUniqueIdentifier: null
+      matchJSON: false
     };
 
     var $ = this;
@@ -276,8 +270,12 @@
         $.resumableObj.fire('fileError', $, error);
       }
       // iframe.contentWindow.document - for IE<7
-      var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document,
-        innerHtml = doc.body.innerText;
+      var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document;
+      var innerHtml = doc.body.innerHTML;
+      if ($.resumableObj.opts.matchJSON) {
+        innerHtml = /(\{.*\})/.exec(innerHtml)[0];
+      }
+
       $.abort();
       $.finished = true;
       $.resumableObj.fire('fileSuccess', $, innerHtml);
@@ -399,7 +397,6 @@
   window.NotResumable = NotResumable;
 
 })(window.Resumable, window, document);
-
 
 // Node.js-style export for Node and Component
 if (typeof module != 'undefined') {
