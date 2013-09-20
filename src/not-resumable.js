@@ -302,7 +302,7 @@
         params = params(this);
       }
       params[o.fileParameterName] = this.element;
-      params['resumableFilename'] = this.fileName;
+      params['resumableFilename'] = this.name;
       params['resumableRelativePath'] = this.relativePath;
       params['resumableIdentifier'] = this.uniqueIdentifier;
 
