@@ -255,6 +255,7 @@
       if (!$.iFrame || !$.iFrame.parentNode) {
         return;
       }
+      $.finished = true;
       try {
         // fixing Opera 10.53
         if ($.iFrame.contentDocument &&
@@ -269,7 +270,9 @@
       } catch (error) {
         //IE may throw an "access is denied" error when attempting to access contentDocument
         $.error = true;
+        $.abort();
         $.resumableObj.fire('fileError', $, error);
+        return;
       }
       // iframe.contentWindow.document - for IE<7
       var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document;
@@ -279,7 +282,6 @@
       }
 
       $.abort();
-      $.finished = true;
       $.resumableObj.fire('fileSuccess', $, innerHtml);
       $.resumableObj.upload();
     };
