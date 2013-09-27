@@ -60,6 +60,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'concat']);
+  grunt.registerTask('build', ['uglify', 'concat']);
 
 };
