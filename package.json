@@ -13,7 +13,8 @@
   "keywords": [
     "resumable",
     "resumable.js",
-    "uploader"
+    "uploader",
+    "file upload"
   ],
   "author": "Aidas Klimas",
   "license": "MIT",

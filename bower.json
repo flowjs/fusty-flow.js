@@ -9,6 +9,6 @@
     "tests"
   ],
   "dependencies": {
-    "resumable.js": "master"
+    "resumable.js": "~2"
   }
 }
