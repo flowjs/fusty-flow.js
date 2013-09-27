@@ -42,5 +42,8 @@ Differences in methods:
 
 ## Build
 
-[Download minified, only 18kb](https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.min.js)
-[Download for development](https://raw.github.com/resumable2/maybe-resumable.js/master/build/maybe-resumable.js)
+To create your own build, clone this repository and run `grunt build`.
+
+Command will concat and minify resumable.js, not-resumable.js and maybe-resumable.js files. Look for maybe-resumable.js and maybe-resumable.min.js in build directory. 
+
+Minified library size is about 18kb, which is much less then other alternative libraries with IE7+ support. 
