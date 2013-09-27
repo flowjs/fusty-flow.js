@@ -4,11 +4,6 @@
   var extend = Resumable.extend;
   var each = Resumable.each;
 
-  function stopEvent(e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
-
   function addEvent(element, type, handler) {
     if (element.addEventListener) {
       element.addEventListener(type, handler, false);
