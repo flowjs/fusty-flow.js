@@ -9,12 +9,12 @@ minimal effort we can have both: awesome [Flow.js](https://github.com/flowjs/flo
 ## How can I install it?
 use bower:
 
-        bower install maybe-resumable.js#~1
-use cdn, look for available packages at http://www.jsdelivr.com/#!resumable
+        bower install fusty-flow.js#~1
+use cdn, look for available packages at http://www.jsdelivr.com/#!flow
         
 or use git clone
 
-        git clone https://github.com/resumable2/maybe-resumable.js
+        git clone https://github.com/flowjs/fusty-flow.js
 
 ## How can I use it?
 
