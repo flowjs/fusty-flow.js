@@ -1,16 +1,18 @@
 {
-  "name": "maybe-resumable.js",
-  "version": "1.0.0-alpha",
-  "description": "Resumable.js html5 file upload support for older browsers",
-  "main": "src/maybe-resumable.js",
+  "name": "fusty-flow.js",
+  "version": "1.0.0-beta",
+  "description": "Flow.js html5 file upload support for older browsers based on iframe upload.",
+  "main": "src/fusty-flow-factory.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/resumable2/maybe-resumable.js.git"
+    "url": "git://github.com/flowjs/fusty-flow.js.git"
   },
   "keywords": [
+    "flow",
+    "flow.js",
     "resumable",
     "resumable.js",
     "uploader",

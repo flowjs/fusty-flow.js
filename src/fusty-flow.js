@@ -1,8 +1,8 @@
-(function (Resumable, window, document, undefined) {
+(function (Flow, window, document, undefined) {
   'use strict';
 
-  var extend = Resumable.extend;
-  var each = Resumable.each;
+  var extend = Flow.extend;
+  var each = Flow.each;
 
   function addEvent(element, type, handler) {
     if (element.addEventListener) {
@@ -35,7 +35,7 @@
 
   /**
    * Not resumable file upload library, for IE7-IE9 browsers
-   * @name NotResumable
+   * @name FustyFlow
    * @param [opts]
    * @param {bool} [opts.singleFile]
    * @param {string} [opts.fileParameterName]
@@ -46,8 +46,8 @@
    * @param {bool} [opts.matchJSON]
    * @constructor
    */
-  function NotResumable(opts) {
-    // Shortcut of "r instanceof Resumable"
+  function FustyFlow(opts) {
+    // Shortcut of "r instanceof Flow"
     this.support = false;
 
     this.files = [];
@@ -76,13 +76,13 @@
       addEvent(newClone, 'change', $.inputChangeEvent);
     };
 
-    this.opts = Resumable.extend({}, this.defaults, opts || {});
+    this.opts = Flow.extend({}, this.defaults, opts || {});
   }
 
-  NotResumable.prototype = {
-    on: Resumable.prototype.on,
-    fire: Resumable.prototype.fire,
-    cancel: Resumable.prototype.cancel,
+  FustyFlow.prototype = {
+    on: Flow.prototype.on,
+    fire: Flow.prototype.fire,
+    cancel: Flow.prototype.cancel,
     assignBrowse: function (domNodes) {
       if (typeof domNodes.length == 'undefined') {
         domNodes = [domNodes];
@@ -183,7 +183,7 @@
       each(elementsList, function (element) {
         // is domElement ?
         if (element.nodeType === 1 && element.value) {
-          var f = new NotResumableFile(this, element);
+          var f = new FustyFlowFile(this, element);
           if (this.fire('fileAdded', f, event)) {
             files.push(f);
           }
@@ -231,12 +231,12 @@
     }
   };
 
-  function NotResumableFile(resumableObj, element) {
-    this.resumableObj = resumableObj;
+  function FustyFlowFile(flowObj, element) {
+    this.flowObj = flowObj;
     this.element = element;
     this.name = element.value && element.value.replace(/.*(\/|\\)/, "");
     this.relativePath = this.name;
-    this.uniqueIdentifier = resumableObj.generateUniqueIdentifier(element);
+    this.uniqueIdentifier = flowObj.generateUniqueIdentifier(element);
     this.iFrame = null;
 
     this.finished = false;
@@ -266,25 +266,25 @@
         //IE may throw an "access is denied" error when attempting to access contentDocument
         $.error = true;
         $.abort();
-        $.resumableObj.fire('fileError', $, error);
+        $.flowObj.fire('fileError', $, error);
         return;
       }
       // iframe.contentWindow.document - for IE<7
       var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document;
       var innerHtml = doc.body.innerHTML;
-      if ($.resumableObj.opts.matchJSON) {
+      if ($.flowObj.opts.matchJSON) {
         innerHtml = /(\{.*\})/.exec(innerHtml)[0];
       }
 
       $.abort();
-      $.resumableObj.fire('fileSuccess', $, innerHtml);
-      $.resumableObj.upload();
+      $.flowObj.fire('fileSuccess', $, innerHtml);
+      $.flowObj.upload();
     };
     this.bootstrap();
   }
 
-  NotResumableFile.prototype = {
-    getExtension: Resumable.ResumableFile.prototype.getExtension,
+  FustyFlowFile.prototype = {
+    getExtension: Flow.FlowFile.prototype.getExtension,
     getType: function () {
       // undefined
     },
@@ -292,16 +292,16 @@
       if (this.finished) {
         return;
       }
-      var o = this.resumableObj.opts;
+      var o = this.flowObj.opts;
       var form = this.createForm();
       var params = o.query;
       if (isFunction(params)) {
         params = params(this);
       }
       params[o.fileParameterName] = this.element;
-      params['resumableFilename'] = this.name;
-      params['resumableRelativePath'] = this.relativePath;
-      params['resumableIdentifier'] = this.uniqueIdentifier;
+      params['flowFilename'] = this.name;
+      params['flowRelativePath'] = this.relativePath;
+      params['flowIdentifier'] = this.uniqueIdentifier;
 
       this.addFormParams(form, params);
       addEvent(this.iFrame, 'load', this.iFrameLoaded);
@@ -317,11 +317,11 @@
     },
     cancel: function () {
       this.abort();
-      this.resumableObj.removeFile(this);
+      this.flowObj.removeFile(this);
     },
     retry: function () {
       this.bootstrap();
-      this.resumableObj.upload();
+      this.flowObj.upload();
     },
     bootstrap: function () {
       this.abort();
@@ -334,7 +334,7 @@
       // undefined
     },
     resume: function () {
-      this.resumableObj.upload();
+      this.flowObj.upload();
     },
     pause: function () {
       this.abort();
@@ -364,7 +364,7 @@
       return iFrame;
     },
     createForm: function() {
-      var target = this.resumableObj.opts.target;
+      var target = this.flowObj.opts.target;
       var form = document.createElement('form');
       form.encoding = "multipart/form-data";
       form.method = "POST";
@@ -392,12 +392,12 @@
     }
   };
 
-  NotResumable.NotResumableFile = NotResumableFile;
-  window.NotResumable = NotResumable;
+  FustyFlow.FustyFlowFile = FustyFlowFile;
+  window.FustyFlow = FustyFlow;
 
-})(window.Resumable, window, document);
+  // Node.js-style export for Node and Component
+  if (typeof module != 'undefined') {
+    module.exports = FustyFlow;
+  }
+})(window.Flow, window, document);
 
-// Node.js-style export for Node and Component
-if (typeof module != 'undefined') {
-  module.exports = window.NotResumable;
-}

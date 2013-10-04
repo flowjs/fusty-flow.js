@@ -3,9 +3,9 @@
 <head>
     <title></title>
     <script>var module = {};</script>
-    <script src="../bower_components/resumable.js/src/resumable.js"></script>
-    <script src="../src/maybe-resumable.js"></script>
-    <script src="../src/not-resumable.js"></script>
+    <script src="../bower_components/flow.js/src/flow.js"></script>
+    <script src="../src/fusty-flow-factory.js"></script>
+    <script src="../src/fusty-flow.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <style>
         .list {
@@ -37,41 +37,41 @@
 </head>
 <body>
 <div class="span6">
-    <p>Resumable</p>
-    <input id="resumableUploader" type="file">
+    <p>Flow</p>
+    <input id="flowUploader" type="file">
     <a href="#" onclick="resume.upload()">Upload</a>
     <a href="#" onclick="resume.pause()">Pause</a>
     <a href="#" onclick="resume.cancel()">Cancel</a>
-    <ul id="resumableList" class="list">
+    <ul id="flowList" class="list">
 
     </ul>
 </div>
 
 <div class="span6">
-    <p>Not Resumable</p>
-    <input id="notResumableUploader" type="file">
+    <p>Not Flow</p>
+    <input id="notFlowUploader" type="file">
     <a href="#" onclick="noresume.upload()">Upload</a>
     <a href="#" onclick="noresume.pause()">Pause</a>
     <a href="#" onclick="noresume.cancel()">Cancel</a>
-    <ul id="notResumableList" class="list">
+    <ul id="notFlowList" class="list">
 
     </ul>
 </div>
 
 <script>
-function init(resumable) {
+function init(flow) {
     var opts = {
         target: 'server.php',
-        query: function () { return {'Hello':'hi', 'resumable': resumable}},
+        query: function () { return {'Hello':'hi', 'flow': flow}},
         simultaneousUploads: 4,
         chunkSize: 1024 * 1024,
         throttleProgressCallbacks: 0
     };
-    var r = resumable ? new Resumable(opts) : new NotResumable(opts);
-    if (resumable && !r.support) {
+    var r = flow ? new Flow(opts) : new FustyFlow(opts);
+    if (flow && !r.support) {
         return ;
     }
-    r.assignBrowse(document.getElementById(resumable ? 'resumableUploader' : 'notResumableUploader'));
+    r.assignBrowse(document.getElementById(flow ? 'flowUploader' : 'notFlowUploader'));
     r.on('catchall', function () {
         console.log(arguments[0], arguments);
     });
@@ -112,7 +112,7 @@ function init(resumable) {
 
     });
 
-    function ResumableList(element) {
+    function FlowList(element) {
         var $ = this;
         $.element = element;
         $.files = {};
@@ -122,14 +122,14 @@ function init(resumable) {
         $.add = function (file) {
             var element = document.createElement('li');
             $.element.appendChild(element);
-            $.files[file.uniqueIdentifier] = new ResumableListRow(element, file);
+            $.files[file.uniqueIdentifier] = new FlowListRow(element, file);
         };
         $.update = function (file, message) {
             $.files[file.uniqueIdentifier] && $.files[file.uniqueIdentifier].update(file, message);
         };
         $.init();
     }
-    function ResumableListRow(element, file) {
+    function FlowListRow(element, file) {
         var $ = this;
         $.element = element;
         $.file = file;
@@ -202,8 +202,8 @@ function init(resumable) {
         $.init();
     }
 
-    var element = document.getElementById(resumable ? 'resumableList' : 'notResumableList');
-    var list = new ResumableList(element);
+    var element = document.getElementById(flow ? 'flowList' : 'notFlowList');
+    var list = new FlowList(element);
     return r;
 }
 var resume = init(true);

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         options: {
           banner: '/*' +
             ' * MIT Licensed' +
-            ' * http://github.com/resumable2/maybe-resumable.js' +
+            ' * http://github.com/flowjs/fusty-flow.js' +
             ' * Aidas Klimas' +
             ' */',
           compress: {
@@ -34,21 +34,21 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'build/maybe-resumable.min.js': [
-            'bower_components/resumable.js/src/resumable.js',
-            'src/maybe-resumable.js',
-            'src/not-resumable.js'
+          'build/fusty-flow.min.js': [
+            'bower_components/flow.js/src/flow.js',
+            'src/fusty-flow-factory.js',
+            'src/fusty-flow.js'
           ]
         }
       }
     },
     concat: {
-      resumable: {
+      flow: {
         files: {
-          'build/maybe-resumable.js': [
-            'bower_components/resumable.js/src/resumable.js',
-            'src/maybe-resumable.js',
-            'src/not-resumable.js'
+          'build/fusty-flow.js': [
+            'bower_components/flow.js/src/flow.js',
+            'src/fusty-flow-factory.js',
+            'src/fusty-flow.js'
           ]
         }
       }
