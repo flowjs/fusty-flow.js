@@ -6,6 +6,16 @@ This library is written in the same style as Flow.js and follows same api. This 
 minimal effort we can have both: awesome [Flow.js](https://github.com/flowjs/flow.js) features and support for older browsers.
 
 
+## How can I install it?
+use bower:
+
+        bower install maybe-resumable.js#~1
+use cdn, look for available packages at http://www.jsdelivr.com/#!resumable
+        
+or use git clone
+
+        git clone https://github.com/resumable2/maybe-resumable.js
+
 ## How can I use it?
 
 Same as Flow.js, except of calling Flow constructor we call fustyFlowFactory function.
