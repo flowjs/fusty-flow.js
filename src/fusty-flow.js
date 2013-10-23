@@ -228,6 +228,12 @@
     },
     getSize: function () {
       // undefined
+    },
+    timeRemaining: function () {
+      // undefined
+    },
+    sizeUploaded: function () {
+      // undefined
     }
   };
 
@@ -393,11 +399,16 @@
   };
 
   FustyFlow.FustyFlowFile = FustyFlowFile;
-  window.FustyFlow = FustyFlow;
 
-  // Node.js-style export for Node and Component
-  if (typeof module != 'undefined') {
+  if (typeof module !== 'undefined') {
     module.exports = FustyFlow;
+  } else if (typeof define === "function" && define.amd) {
+    // AMD/requirejs: Define the module
+    define(function(){
+      return FustyFlow;
+    });
+  } else {
+    window.FustyFlow = FustyFlow;
   }
 })(window.Flow, window, document);
 
