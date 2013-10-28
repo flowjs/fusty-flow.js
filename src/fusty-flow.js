@@ -176,7 +176,7 @@
         totalDone += file.progress();
         totalFiles++;
       });
-      return totalSize > 0 ? totalDone / totalFiles : 0;
+      return totalFiles > 0 ? totalDone / totalFiles : 0;
     },
     addFiles: function (elementsList, event) {
       var files = [];
