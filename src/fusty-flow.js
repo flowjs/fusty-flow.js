@@ -331,6 +331,7 @@
     },
     bootstrap: function () {
       this.abort();
+      this.finished = false;
       this.error = false;
     },
     timeRemaining: function () {
