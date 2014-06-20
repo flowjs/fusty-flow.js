@@ -323,8 +323,8 @@
       }
     },
     cancel: function () {
-      this.abort();
       this.flowObj.removeFile(this);
+      this.abort();
     },
     retry: function () {
       this.bootstrap();
