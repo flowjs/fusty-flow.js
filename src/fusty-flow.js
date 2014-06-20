@@ -314,11 +314,12 @@
       form.submit();
       removeElement(form);
     },
-    abort: function () {
+    abort: function (noupload) {
       if (this.iFrame) {
         this.iFrame.setAttribute('src', 'java' + String.fromCharCode(115) + 'cript:false;');
         removeElement(this.iFrame);
         this.iFrame = null;
+        !noupload && this.flowObj.upload();
       }
     },
     cancel: function () {
@@ -330,7 +331,7 @@
       this.flowObj.upload();
     },
     bootstrap: function () {
-      this.abort();
+      this.abort(true);
       this.finished = false;
       this.error = false;
     },
