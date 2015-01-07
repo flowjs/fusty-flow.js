@@ -142,7 +142,7 @@
       // Kick off the queue
       var files = 0;
       each(this.files, function (file) {
-        if (file.progress() == 1) {
+        if (file.progress() == 1 || file.isPaused()) {
           return;
         }
         if (file.isUploading()) {
@@ -163,11 +163,13 @@
     },
     pause: function () {
       each(this.files, function (file) {
-        file.abort();
+        file.pause();
       });
     },
     resume: function () {
-      this.upload();
+      each(this.files, function (file) {
+        file.resume();
+      });
     },
     progress: function () {
       var totalDone = 0;
@@ -247,6 +249,7 @@
 
     this.finished = false;
     this.error = false;
+    this.paused = false;
 
     var $ = this;
     this.iFrameLoaded = function (event) {
@@ -342,13 +345,18 @@
       // undefined
     },
     resume: function () {
+      this.paused = false;
       this.flowObj.upload();
     },
     pause: function () {
+      this.paused = true;
       this.abort();
     },
     isUploading: function () {
       return this.iFrame !== null;
+    },
+    isPaused: function () {
+      return this.paused;
     },
     isComplete: function () {
       return this.progress() === 1;
