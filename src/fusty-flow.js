@@ -64,7 +64,7 @@
     var $ = this;
 
     this.inputChangeEvent = function (event) {
-      var input = event.srcElement;
+      var input = event.target || event.srcElement;
       removeEvent(input, 'change', $.inputChangeEvent);
       var newClone = input.cloneNode(false);
       // change current input with new one
@@ -81,6 +81,7 @@
 
   FustyFlow.prototype = {
     on: Flow.prototype.on,
+    off: Flow.prototype.off,
     fire: Flow.prototype.fire,
     cancel: Flow.prototype.cancel,
     assignBrowse: function (domNodes) {
