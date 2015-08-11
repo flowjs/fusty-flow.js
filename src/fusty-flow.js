@@ -81,6 +81,7 @@
 
   FustyFlow.prototype = {
     on: Flow.prototype.on,
+    off: Flow.prototype.off,
     fire: Flow.prototype.fire,
     cancel: Flow.prototype.cancel,
     assignBrowse: function (domNodes) {
