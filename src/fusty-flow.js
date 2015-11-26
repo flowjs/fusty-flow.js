@@ -382,6 +382,10 @@
     },
     createForm: function() {
       var target = this.flowObj.opts.target;
+      if (typeof target === "function") {
+        target = target.apply(null);
+      }
+
       var form = document.createElement('form');
       form.encoding = "multipart/form-data";
       form.method = "POST";
