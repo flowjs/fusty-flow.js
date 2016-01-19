@@ -22,7 +22,12 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "babel-polyfill": "^6.3.14",
+    "clone": "^1.0.2",
+    "grunt": "~0.4.1",
+    "grunt-webpack": "^1.0.11",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "flow.js": "git@github.com:flowjs/flow.js.git#v2.9.0"
