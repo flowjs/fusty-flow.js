@@ -1,14 +1,12 @@
-(function (Flow, FustyFlow, window) {
-  'use strict';
+var Flow = require('flow.js');
+var FustyFlow = require('./fusty-flow');
 
-  var fustyFlowFactory = function (opts) {
-    var flow = new Flow(opts);
-    if (flow.support) {
-      return flow;
-    }
-    return new FustyFlow(opts);
+var fustyFlowFactory = function (opts) {
+  var flow = new Flow(opts);
+  if (flow.support) {
+    return flow;
   }
+  return new FustyFlow(opts);
+}
 
-  window.fustyFlowFactory = fustyFlowFactory;
-
-})(window.Flow, window.FustyFlow, window);
+module.exports = fustyFlowFactory;

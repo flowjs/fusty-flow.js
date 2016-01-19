@@ -2,7 +2,7 @@
   "name": "fusty-flow.js",
   "version": "1.2.0",
   "description": "Flow.js html5 file upload support for older browsers based on iframe upload.",
-  "main": "src/fusty-flow-factory.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +23,8 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "flow.js": "git@github.com:flowjs/flow.js.git#v2.9.0"
   }
 }
