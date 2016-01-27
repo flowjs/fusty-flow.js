@@ -2,8 +2,7 @@
   "name": "fusty-flow.js",
   "version": "1.2.0",
   "main": [
-    "src/fusty-flow.js",
-    "src/fusty-flow-factory.js"
+    "dist/fusty-flow.js"
   ],
   "ignore": [
     "**/.*",

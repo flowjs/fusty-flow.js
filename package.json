@@ -2,7 +2,7 @@
   "name": "@flowjs/fusty-flow.js",
   "version": "1.2.0",
   "description": "Flow.js html5 file upload support for older browsers based on iframe upload.",
-  "main": "src/fusty-flow-factory.js",
+  "main": "dist/fusty-flow.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,8 +22,14 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
+    "babel-polyfill": "^6.3.14",
+    "clone": "^1.0.2",
     "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.11.0",
-    "grunt-contrib-concat": "~0.5.1"
+    "grunt-webpack": "^1.0.11",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "flow.js": "git@github.com:flowjs/flow.js.git#v2.9.0"
   }
 }
