@@ -84,7 +84,17 @@
     off: Flow.prototype.off,
     fire: Flow.prototype.fire,
     cancel: Flow.prototype.cancel,
-    assignBrowse: function (domNodes) {
+      /**
+         * Assign a browse action to one or more DOM nodes.
+         * @function
+         * @param {Element|Array.<Element>} domNodes
+         * @param {boolean} isDirectory Not used, here to maintain flow.js interface
+         * @param {boolean} singleFile Not used, here to maintain flow.js interface
+         * @param {Object} attributes set custom attributes:
+         *  http://www.w3.org/TR/html-markup/input.file.html#input.file-attributes
+         *  eg: accept: 'image/*'
+         */
+    assignBrowse: function (domNodes, isDirectory, singleFile, attributes) {
       if (typeof domNodes.length == 'undefined') {
         domNodes = [domNodes];
       }
@@ -119,6 +129,10 @@
 
           domNode.appendChild(input);
         }
+
+        each(attributes, function (value, key) {
+          input.setAttribute(key, value);
+        });
         // When new files are added, simply append them to the overall list
         addEvent(input, 'change', this.inputChangeEvent);
       }, this);
