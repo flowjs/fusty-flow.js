@@ -10,7 +10,7 @@ minimal effort we can have both: awesome [Flow.js](https://github.com/flowjs/flo
 use bower:
 
         bower install fusty-flow.js#~1
-use cdn, look for available packages at http://www.jsdelivr.com/#!flow
+use cdn, look for available packages at http://www.jsdelivr.com/?query=flow.js
         
 or use git clone
 
