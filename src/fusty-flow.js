@@ -295,7 +295,12 @@
       }
       // iframe.contentWindow.document - for IE<7
       var doc = $.iFrame.contentDocument || $.iFrame.contentWindow.document;
-      var innerHtml = doc.body.innerHTML;
+
+      //prevent HTML entites encoding :
+      var txt = document.createElement("textarea");
+      txt.innerHTML = doc.body.innerHTML;
+      var innerHtml = txt.value
+
       if ($.flowObj.opts.matchJSON) {
         innerHtml = /(\{.*\})/.exec(innerHtml)[0];
       }
