@@ -240,6 +240,7 @@
       for (var i = this.files.length - 1; i >= 0; i--) {
         if (this.files[i] === file) {
           this.files.splice(i, 1);
+          this.fire('fileRemoved', file);
         }
       }
     },
