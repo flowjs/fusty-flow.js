@@ -355,6 +355,10 @@
       this.flowObj.upload();
     },
     bootstrap: function () {
+      if (typeof this.flowObj.opts.initFileFn === "function") {
+        this.flowObj.opts.initFileFn(this);
+      }
+
       this.abort(true);
       this.finished = false;
       this.error = false;
